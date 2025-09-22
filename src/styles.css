@@ -14,6 +14,8 @@ body {
 header {
     position: relative;
     padding: 1rem;
+    background: yellow; /* Временный цвет для проверки */
+    min-height: 80px;
 }
 
 nav ul {
@@ -70,4 +72,9 @@ body.dark-theme a {
 
 body.dark-theme .theme-toggle {
     background: #6aa2ff;
+}
+
+.theme-toggle {
+    background: red !important; /* Яркий цвет для видимости */
+    border: 2px solid black !important;
 }
