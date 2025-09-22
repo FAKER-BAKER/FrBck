@@ -1,80 +1,96 @@
-class ContactModel {
-    constructor() {
-        this.dialog = document.getElementById('contactDialog');
-        this.contactButton = document.getElementById('contactButton');
-        this.closeButton = document.getElementById('closeDialog');
-        this.cancelButton = document.getElementById('cancelButton');
-        this.form = document.getElementById('contactForm');
-        
-        this.init();
-    }
-    
-    init() {
-        this.bindEvents();
-        this.addPhoneMask();
-    }
-    
-    bindEvents() {
-        this.contactButton.addEventListener('click', () => this.open());
-        this.closeButton.addEventListener('click', () => this.close());
-        this.cancelButton.addEventListener('click', () => this.close());
-        
-        this.dialog.addEventListener('click', (event) => {
-            if (event.target === this.dialog) this.close();
-        });
-        
-        this.form.addEventListener('submit', (event) => this.handleSubmit(event));
-    }
-    
-    open() {
-        this.dialog.showModal();
-    }
-    
-    close() {
-        this.dialog.close();
-        this.form.reset();
-    }
-    
-    handleSubmit(event) {
-        event.preventDefault();
-        
-        if (this.validateForm()) {
-            const formData = new FormData(this.form);
-            const data = Object.fromEntries(formData);
-            
-            console.log('Данные формы:', data);
-            alert('Сообщение отправлено! Мы свяжемся с вами, спасибо за обращение.');
-            this.close();
-        }
-    }
-    
-    validateForm() {
-        const inputs = this.form.querySelectorAll('input[required], textarea[required]');
-        let isValid = true;
-        
-        inputs.forEach(input => {
-            if (!input.value.trim()) {
-                input.style.borderColor = 'red';
-                isValid = false;
-            } else {
-                input.style.borderColor = '';
-            }
-        });
-        
-        return isValid;
-    }
-    
-    addPhoneMask() {
-        const phoneInput = document.getElementById('phone');
-        if (phoneInput) {
-            phoneInput.addEventListener('input', function(e) {
-                const x = e.target.value.replace(/\D/g, '').match(/(\d{0,1})(\d{0,3})(\d{0,3})(\d{0,2})(\d{0,2})/);
-                e.target.value = !x[2] ? x[1] : '+' + x[1] + ' (' + x[2] + (x[3] ? ') ' + x[3] : '') + (x[4] ? '-' + x[4] : '') + (x[5] ? '-' + x[5] : '');
-            });
-        }
-    }
+// Элементы модального окна
+const contactButton = document.getElementById('contactButton');
+const modal = document.createElement('div');
+modal.className = 'modal';
+modal.innerHTML = `
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Написать нам</h2>
+        <form class="contact-form" id="contactForm">
+            <div class="form-group">
+                <label for="name">Ваше имя:</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Ваш email:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="phone">Телефон (необязательно):</label>
+                <input type="tel" id="phone" name="phone">
+            </div>
+            <div class="form-group">
+                <label for="message">Сообщение:</label>
+                <textarea id="message" name="message" required placeholder="Расскажите, чем мы можем вам помочь..."></textarea>
+            </div>
+            <button type="submit" class="submit-btn">Отправить сообщение</button>
+        </form>
+    </div>
+`;
+
+// Добавляем модальное окно в body
+document.body.appendChild(modal);
+
+const closeBtn = modal.querySelector('.close');
+const contactForm = modal.getElementById('contactForm');
+
+// Функции для работы с модальным окном
+function openModal() {
+    modal.style.display = 'block';
+    document.body.style.overflow = 'hidden'; // Блокируем прокрутку страницы
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-    new ContactModal();
+function closeModal() {
+    modal.style.display = 'none';
+    document.body.style.overflow = 'auto'; // Восстанавливаем прокрутку
+}
+
+// Обработчики событий
+contactButton.addEventListener('click', openModal);
+
+closeBtn.addEventListener('click', closeModal);
+
+// Закрытие при клике вне модального окна
+modal.addEventListener('click', (e) => {
+    if (e.target === modal) {
+        closeModal();
+    }
+});
+
+// Закрытие по клавише Escape
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal.style.display === 'block') {
+        closeModal();
+    }
+});
+
+// Обработка отправки формы
+contactForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    
+    // Собираем данные формы
+    const formData = new FormData(contactForm);
+    const data = {
+        name: formData.get('name'),
+        email: formData.get('email'),
+        phone: formData.get('phone'),
+        message: formData.get('message')
+    };
+    
+    // Здесь можно добавить отправку данных на сервер
+    console.log('Данные формы:', data);
+    
+    // Показываем сообщение об успехе
+    alert('Спасибо! Ваше сообщение отправлено. Мы свяжемся с вами в ближайшее время.');
+    
+    // Очищаем форму и закрываем модальное окно
+    contactForm.reset();
+    closeModal();
+});
+
+// Валидация телефона (опционально)
+const phoneInput = modal.getElementById('phone');
+phoneInput.addEventListener('input', function(e) {
+    // Удаляем все нецифровые символы
+    this.value = this.value.replace(/\D/g, '');
 });

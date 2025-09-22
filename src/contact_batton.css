@@ -1,94 +1,121 @@
-.contact-button {
-    background: #0a84ff;
-    color: white;
-    border: none;
-    padding: 0.75rem 1.5rem;
+/* Стили для модального окна */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    animation: fadeIn 0.3s;
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 5% auto;
+    padding: 20px;
     border-radius: 8px;
-    cursor: pointer;
-    font-size: 1rem;
-    width: auto;
-    max-width: none;
-    transition: background 0.3s ease;
-}
-
-.contact-button:hover {
-    background: #0066cc;
-}
-
-.contact-dialog {
-    padding: 2rem;
-    border: none;
-    border-radius: 12px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-    max-width: 500px;
     width: 90%;
+    max-width: 500px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    animation: slideIn 0.3s;
 }
 
-.contact-dialog::backdrop {
-    background: rgba(0, 0, 0, 0.5);
+/* Темная тема для модального окна */
+body.dark-theme .modal-content {
+    background-color: #2d2d2d;
+    color: #fff;
 }
 
-.dialog-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1.5rem;
-}
-
-.dialog-title {
-    margin: 0;
-    font-size: 1.5rem;
-}
-
-.close-button {
-    background: none;
-    border: none;
-    font-size: 1.5rem;
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
     cursor: pointer;
-    padding: 0;
-    width: auto;
+    line-height: 1;
+}
+
+.close:hover {
+    color: #000;
+}
+
+body.dark-theme .close:hover {
+    color: #fff;
+}
+
+/* Стили для формы */
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
 }
 
 .form-group {
-    margin-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
 }
 
 .form-group label {
-    display: block;
-    margin-bottom: 0.5rem;
+    margin-bottom: 5px;
     font-weight: bold;
 }
 
-.form-actions {
-    display: flex;
-    gap: 1rem;
-    justify-content: flex-end;
-    margin-top: 2rem;
+.form-group input,
+.form-group textarea {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+    transition: border-color 0.3s;
 }
 
-body.dark-theme .contact-dialog {
-    background: #2d3748;
-    color: #f5f5f5;
+body.dark-theme .form-group input,
+body.dark-theme .form-group textarea {
+    background-color: #3d3d3d;
+    border-color: #555;
+    color: #fff;
 }
 
-body.dark-theme .close-button {
-    color: #f5f5f5;
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #007bff;
 }
 
-body.dark-theme textarea,
-body.dark-theme input {
-    background: #4a5568;
-    color: #f5f5f5;
-    border-color: #718096;
-}
-
-textarea {
-    width: 100%;
-    max-width: 480px;
-    padding: .5rem .75rem;
-    border: 1px solid #c8c8c8;
-    border-radius: 8px;
-    background: #fff;
-    font-family: inherit;
+.form-group textarea {
+    min-height: 100px;
     resize: vertical;
+}
+
+.submit-btn {
+    background-color: #007bff;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+.submit-btn:hover {
+    background-color: #0056b3;
+}
+
+.submit-btn:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+/* Анимации */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideIn {
+    from { transform: translateY(-50px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
 }
