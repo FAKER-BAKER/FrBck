@@ -1,35 +1,32 @@
-// Функция для применения темы
-function applyTheme(theme) {
-    if (theme === 'dark') {
-        document.body.classList.add('dark-theme');
-        document.body.classList.remove('light-theme');
-    } else {
-        document.body.classList.add('light-theme');
-        document.body.classList.remove('dark-theme');
-    }
-    localStorage.setItem('theme', theme);
-}
-
-// Функция инициализации темы
-function initTheme() {
-    const themeToggle = document.getElementById('themeToggle');
+// Функция для переключения темы
+function toggleTheme() {
+    const body = document.body;
+    const isDark = body.classList.contains('dark-theme');
     
-    if (!themeToggle) {
-        console.log('Кнопка смены темы не найдена');
-        return;
+    if (isDark) {
+        body.classList.remove('dark-theme');
+        body.classList.add('light-theme');
+        localStorage.setItem('theme', 'light');
+    } else {
+        body.classList.remove('light-theme');
+        body.classList.add('dark-theme');
+        localStorage.setItem('theme', 'dark');
     }
-
-    // Загружаем сохраненную тему или устанавливаем светлую по умолчанию
-    const savedTheme = localStorage.getItem('theme') || 'light';
-    applyTheme(savedTheme);
-
-    // Обработчик клика по кнопке
-    themeToggle.addEventListener('click', function() {
-        const isDark = document.body.classList.contains('dark-theme');
-        const newTheme = isDark ? 'light' : 'dark';
-        applyTheme(newTheme);
-    });
 }
 
-// Инициализируем тему после загрузки DOM
-document.addEventListener('DOMContentLoaded', initTheme);
+// Инициализация темы при загрузке
+document.addEventListener('DOMContentLoaded', function() {
+    const themeToggle = document.getElementById('themeToggle');
+    const savedTheme = localStorage.getItem('theme');
+    
+    // Применяем сохраненную тему или оставляем light-theme по умолчанию
+    if (savedTheme === 'dark') {
+        document.body.classList.remove('light-theme');
+        document.body.classList.add('dark-theme');
+    }
+    
+    // Добавляем обработчик клика
+    if (themeToggle) {
+        themeToggle.addEventListener('click', toggleTheme);
+    }
+});

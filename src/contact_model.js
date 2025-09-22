@@ -1,5 +1,4 @@
-// Функция инициализации модального окна
-function initModal() {
+document.addEventListener('DOMContentLoaded', function() {
     // Создаем модальное окно
     const modal = document.createElement('div');
     modal.className = 'modal';
@@ -17,89 +16,45 @@ function initModal() {
                     <input type="email" id="email" name="email" required>
                 </div>
                 <div class="form-group">
-                    <label for="phone">Телефон (необязательно):</label>
+                    <label for="phone">Телефон:</label>
                     <input type="tel" id="phone" name="phone">
                 </div>
                 <div class="form-group">
                     <label for="message">Сообщение:</label>
-                    <textarea id="message" name="message" required placeholder="Расскажите, чем мы можем вам помочь..."></textarea>
+                    <textarea id="message" name="message" required></textarea>
                 </div>
-                <button type="submit" class="submit-btn">Отправить сообщение</button>
+                <button type="submit" class="submit-btn">Отправить</button>
             </form>
         </div>
     `;
-
-    // Добавляем модальное окно в body
+    
     document.body.appendChild(modal);
-
-    // Получаем элементы после добавления в DOM
+    
+    // Элементы
     const contactButton = document.getElementById('contactButton');
     const closeBtn = modal.querySelector('.close');
     const contactForm = modal.getElementById('contactForm');
-
-    // Функции для работы с модальным окном
+    
+    // Функции
     function openModal() {
         modal.style.display = 'block';
-        document.body.style.overflow = 'hidden';
     }
-
+    
     function closeModal() {
         modal.style.display = 'none';
-        document.body.style.overflow = 'auto';
     }
-
-    // Обработчики событий - только если элементы существуют
-    if (contactButton) {
-        contactButton.addEventListener('click', openModal);
-    }
-
-    if (closeBtn) {
-        closeBtn.addEventListener('click', closeModal);
-    }
-
-    // Закрытие при клике вне модального окна
-    modal.addEventListener('click', (e) => {
-        if (e.target === modal) {
-            closeModal();
-        }
+    
+    // Обработчики
+    contactButton.addEventListener('click', openModal);
+    closeBtn.addEventListener('click', closeModal);
+    
+    modal.addEventListener('click', function(e) {
+        if (e.target === modal) closeModal();
     });
-
-    // Закрытие по клавише Escape
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && modal.style.display === 'block') {
-            closeModal();
-        }
+    
+    contactForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        alert('Сообщение отправлено!');
+        closeModal();
     });
-
-    // Обработка отправки формы
-    if (contactForm) {
-        contactForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            
-            const formData = new FormData(contactForm);
-            const data = {
-                name: formData.get('name'),
-                email: formData.get('email'),
-                phone: formData.get('phone'),
-                message: formData.get('message')
-            };
-            
-            console.log('Данные формы:', data);
-            alert('Спасибо! Ваше сообщение отправлено. Мы свяжемся с вами в ближайшее время.');
-            
-            contactForm.reset();
-            closeModal();
-        });
-    }
-
-    // Валидация телефона
-    const phoneInput = modal.querySelector('#phone');
-    if (phoneInput) {
-        phoneInput.addEventListener('input', function(e) {
-            this.value = this.value.replace(/\D/g, '');
-        });
-    }
-}
-
-// Инициализируем модальное окно после загрузки DOM
-document.addEventListener('DOMContentLoaded', initModal);
+});
