@@ -8,24 +8,23 @@
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
-    animation: fadeIn 0.3s;
 }
 
 .modal-content {
     background-color: #fefefe;
-    margin: 5% auto;
+    margin: 10% auto;
     padding: 20px;
+    border: 1px solid #888;
     border-radius: 8px;
     width: 90%;
     max-width: 500px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    animation: slideIn 0.3s;
+    position: relative;
 }
 
-/* Темная тема для модального окна */
 body.dark-theme .modal-content {
     background-color: #2d2d2d;
-    color: #fff;
+    color: #ffffff;
+    border-color: #555;
 }
 
 .close {
@@ -35,6 +34,9 @@ body.dark-theme .modal-content {
     font-weight: bold;
     cursor: pointer;
     line-height: 1;
+    position: absolute;
+    right: 15px;
+    top: 10px;
 }
 
 .close:hover {
@@ -45,30 +47,29 @@ body.dark-theme .close:hover {
     color: #fff;
 }
 
-/* Стили для формы */
+/* Стили формы */
 .contact-form {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
+    margin-top: 20px;
 }
 
 .form-group {
-    display: flex;
-    flex-direction: column;
+    margin-bottom: 15px;
 }
 
 .form-group label {
+    display: block;
     margin-bottom: 5px;
     font-weight: bold;
 }
 
 .form-group input,
 .form-group textarea {
+    width: 100%;
     padding: 10px;
     border: 1px solid #ddd;
     border-radius: 4px;
+    box-sizing: border-box;
     font-size: 16px;
-    transition: border-color 0.3s;
 }
 
 body.dark-theme .form-group input,
@@ -76,12 +77,6 @@ body.dark-theme .form-group textarea {
     background-color: #3d3d3d;
     border-color: #555;
     color: #fff;
-}
-
-.form-group input:focus,
-.form-group textarea:focus {
-    outline: none;
-    border-color: #007bff;
 }
 
 .form-group textarea {
@@ -92,30 +87,22 @@ body.dark-theme .form-group textarea {
 .submit-btn {
     background-color: #007bff;
     color: white;
-    padding: 12px 20px;
+    padding: 12px 24px;
     border: none;
     border-radius: 4px;
     cursor: pointer;
     font-size: 16px;
-    transition: background-color 0.3s;
+    width: 100%;
 }
 
 .submit-btn:hover {
     background-color: #0056b3;
 }
 
-.submit-btn:disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
+body.dark-theme .submit-btn {
+    background-color: #0056b3;
 }
 
-/* Анимации */
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
-
-@keyframes slideIn {
-    from { transform: translateY(-50px); opacity: 0; }
-    to { transform: translateY(0); opacity: 1; }
+body.dark-theme .submit-btn:hover {
+    background-color: #003d7a;
 }
