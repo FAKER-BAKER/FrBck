@@ -1,86 +1,71 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Создаем модальное окно
-    const modal = document.createElement('div');
-    modal.className = 'modal';
-    modal.style.display = 'none'; // Сразу скрываем
-    modal.innerHTML = `
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2>Написать нам</h2>
-            <form class="contact-form" id="contactForm">
-                <div class="form-group">
-                    <label for="name">Ваше имя:</label>
-                    <input type="text" id="name" name="name" required>
-                </div>
-                <div class="form-group">
-                    <label for="email">Ваш email:</label>
-                    <input type="email" id="email" name="email" required>
-                </div>
-                <div class="form-group">
-                    <label for="phone">Телефон:</label>
-                    <input type="tel" id="phone" name="phone">
-                </div>
-                <div class="form-group">
-                    <label for="message">Сообщение:</label>
-                    <textarea id="message" name="message" required></textarea>
-                </div>
-                <button type="submit" class="submit-btn">Отправить</button>
-            </form>
-        </div>
-    `;
-    
-    document.body.appendChild(modal);
-    
-    // Элементы
     const contactButton = document.getElementById('contactButton');
-    const closeBtn = modal.querySelector('.close');
-    const contactForm = modal.getElementById('contactForm');
-    
-    console.log('Кнопка найдена:', contactButton); // Для отладки
-    
-    // Функции
-    function openModal() {
-        console.log('Открываем модальное окно'); // Для отладки
-        modal.style.display = 'block';
-        document.body.style.overflow = 'hidden'; // Блокируем прокрутку
-    }
-    
-    function closeModal() {
-        modal.style.display = 'none';
-        document.body.style.overflow = 'auto'; // Восстанавливаем прокрутку
-    }
-    
-    // Обработчики событий
+    const contactForm = document.getElementById('contactForm');
+    const contactDialogForm = document.getElementById('contactDialogForm');
+    const closeBtn = contactForm.querySelector('.close');
+
+    console.log('Элементы загружены:', {
+        contactButton: !!contactButton,
+        contactForm: !!contactForm,
+        contactDialogForm: !!contactDialogForm
+    });
+
+    // Открытие модального окна
     if (contactButton) {
-        contactButton.addEventListener('click', openModal);
-    } else {
-        console.error('Кнопка "Написать нам" не найдена!');
+        contactButton.addEventListener('click', function() {
+            console.log('Открываем диалог');
+            contactForm.showModal();
+        });
     }
-    
+
+    // Закрытие по кнопке ×
     if (closeBtn) {
-        closeBtn.addEventListener('click', closeModal);
+        closeBtn.addEventListener('click', function() {
+            contactForm.close();
+        });
     }
-    
-    // Закрытие по клику вне окна
-    modal.addEventListener('click', function(e) {
-        if (e.target === modal) {
-            closeModal();
+
+    // Закрытие по клику вне диалога (в backdrop)
+    contactForm.addEventListener('click', function(event) {
+        const rect = contactForm.getBoundingClientRect();
+        const isInDialog = (
+            rect.top <= event.clientY && 
+            event.clientY <= rect.top + rect.height &&
+            rect.left <= event.clientX && 
+            event.clientX <= rect.left + rect.width
+        );
+        
+        if (!isInDialog) {
+            contactForm.close();
         }
     });
-    
-    // Закрытие по Escape
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && modal.style.display === 'block') {
-            closeModal();
-        }
-    });
-    
-    if (contactForm) {
-        contactForm.addEventListener('submit', function(e) {
+
+    // Обработка отправки формы
+    if (contactDialogForm) {
+        contactDialogForm.addEventListener('submit', function(e) {
             e.preventDefault();
-            alert('Сообщение отправлено!');
-            contactForm.reset();
-            closeModal();
+            
+            const formData = new FormData(contactDialogForm);
+            const data = {
+                name: formData.get('name'),
+                email: formData.get('email'),
+                phone: formData.get('phone'),
+                message: formData.get('message')
+            };
+            
+            console.log('Данные формы:', data);
+            alert('Спасибо! Ваше сообщение отправлено.');
+            
+            contactDialogForm.reset();
+            contactForm.close();
+        });
+    }
+
+    // Валидация телефона
+    const phoneInput = document.getElementById('phone');
+    if (phoneInput) {
+        phoneInput.addEventListener('input', function() {
+            this.value = this.value.replace(/\D/g, '');
         });
     }
 });
