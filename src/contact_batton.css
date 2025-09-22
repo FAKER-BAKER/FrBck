@@ -12,13 +12,34 @@
 
 .modal-content {
     background-color: #fefefe;
-    margin: 10% auto;
+    margin: auto;
     padding: 20px;
     border: 1px solid #888;
     border-radius: 8px;
     width: 90%;
     max-width: 500px;
     position: relative;
+    
+    /* Центрирование */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    
+    /* Анимация появления */
+    animation: modalAppear 0.3s ease-out;
+}
+
+/* Анимация появления */
+@keyframes modalAppear {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -60%);
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%);
+    }
 }
 
 body.dark-theme .modal-content {
@@ -79,6 +100,17 @@ body.dark-theme .form-group textarea {
     color: #fff;
 }
 
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #007bff;
+}
+
+body.dark-theme .form-group input:focus,
+body.dark-theme .form-group textarea:focus {
+    border-color: #4da6ff;
+}
+
 .form-group textarea {
     min-height: 100px;
     resize: vertical;
@@ -93,6 +125,7 @@ body.dark-theme .form-group textarea {
     cursor: pointer;
     font-size: 16px;
     width: 100%;
+    transition: background-color 0.3s;
 }
 
 .submit-btn:hover {
@@ -105,4 +138,15 @@ body.dark-theme .submit-btn {
 
 body.dark-theme .submit-btn:hover {
     background-color: #003d7a;
+}
+
+/* Адаптивность для мобильных */
+@media (max-width: 600px) {
+    .modal-content {
+        width: 95%;
+        margin: 20px;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
 }
