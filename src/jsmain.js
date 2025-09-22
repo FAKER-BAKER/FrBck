@@ -25,4 +25,19 @@ function initTheme() {
 
 document.addEventListener('DOMContentLoaded', initTheme);
 
-initTheme();
+
+function applyTheme(theme) {
+    document.body.className = theme + '-theme';
+    localStorage.setItem('theme', theme);
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    applyTheme(savedTheme);
+    
+    themeToggle.addEventListener('click', function() {
+        const currentTheme = document.body.classList.contains('dark-theme') ? 'dark' : 'light';
+        const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+        applyTheme(newTheme);
+    });
+});
