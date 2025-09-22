@@ -1,43 +1,35 @@
-function initTheme() {
-    const themeToggle = document.getElementById('themeToggle');
-
-    function loadTheme() {
-        const savedTheme = localStorage.getItem('theme');
-        if (savedTheme === 'dark') {
-            document.body.classList.add('dark-theme');
-            themeToggle.textContent = '☀️ Светлая';
-        } else {
-            document.body.classList.remove('dark-theme');
-            themeToggle.textContent = '🌓 Тёмная';
-        }
-    }
-    
-    function toggleTheme() {
-        const isDark = document.body.classList.toggle('dark-theme');
-        themeToggle.textContent = isDark ? '☀️ Светлая' : '🌓 Тёмная';
-        localStorage.setItem('theme', isDark ? 'dark' : 'light');
-    }
-
-    loadTheme();
-
-    themeToggle.addEventListener('click', toggleTheme);
-}
-
-document.addEventListener('DOMContentLoaded', initTheme);
-
-
+// Функция для применения темы
 function applyTheme(theme) {
-    document.body.className = theme + '-theme';
+    if (theme === 'dark') {
+        document.body.classList.add('dark-theme');
+        document.body.classList.remove('light-theme');
+    } else {
+        document.body.classList.add('light-theme');
+        document.body.classList.remove('dark-theme');
+    }
     localStorage.setItem('theme', theme);
 }
 
-document.addEventListener('DOMContentLoaded', function() {
+// Функция инициализации темы
+function initTheme() {
+    const themeToggle = document.getElementById('themeToggle');
+    
+    if (!themeToggle) {
+        console.log('Кнопка смены темы не найдена');
+        return;
+    }
+
+    // Загружаем сохраненную тему или устанавливаем светлую по умолчанию
     const savedTheme = localStorage.getItem('theme') || 'light';
     applyTheme(savedTheme);
-    
+
+    // Обработчик клика по кнопке
     themeToggle.addEventListener('click', function() {
-        const currentTheme = document.body.classList.contains('dark-theme') ? 'dark' : 'light';
-        const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+        const isDark = document.body.classList.contains('dark-theme');
+        const newTheme = isDark ? 'light' : 'dark';
         applyTheme(newTheme);
     });
-});
+}
+
+// Инициализируем тему после загрузки DOM
+document.addEventListener('DOMContentLoaded', initTheme);

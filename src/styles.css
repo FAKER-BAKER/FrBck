@@ -1,87 +1,81 @@
-* {
-    box-sizing: border-box;
-}
-
+/* Базовые стили темы */
 body {
-    font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
-    line-height: 1.5;
     margin: 0;
     padding: 0;
-    min-height: 100vh;
-    position: relative;
+    font-family: Arial, sans-serif;
+    transition: background-color 0.3s, color 0.3s;
 }
 
+body.light-theme {
+    background-color: #ffffff;
+    color: #333333;
+}
+
+body.dark-theme {
+    background-color: #1a1a1a;
+    color: #ffffff;
+}
+
+/* Стили хедера */
 header {
-    position: relative;
-    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #dee2e6;
+}
+
+body.dark-theme header {
+    background-color: #2d2d2d;
+    border-bottom-color: #444;
 }
 
 nav ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
     display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
     gap: 1rem;
 }
 
+nav a {
+    text-decoration: none;
+    color: #007bff;
+}
+
+body.dark-theme nav a {
+    color: #4da6ff;
+}
+
+.theme-toggle {
+    background: none;
+    border: 1px solid #ddd;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+body.dark-theme .theme-toggle {
+    border-color: #555;
+    color: #fff;
+}
+
+/* Стили основного контента */
 main {
     padding: 2rem;
     max-width: 1200px;
     margin: 0 auto;
 }
 
+/* Стили футера */
 footer {
-    background: #f5f5f5;
-    padding: 2rem;
     text-align: center;
+    padding: 2rem;
     margin-top: 2rem;
-}
-
-.theme-toggle {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    padding: 0.5rem 1rem;
-    background: #0a84ff;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 0.9rem;
-    z-index: 100;
-}
-
-.theme-toggle:hover {
-    background: #0066cc;
-}
-
-body.dark-theme {
-    background-color: #0b0b0b !important;
-    color: #f5f5f5 !important;
+    border-top: 1px solid #dee2e6;
 }
 
 body.dark-theme footer {
-    background: #1a1a1a !important;
-    color: #f5f5f5 !important;
-}
-
-body.dark-theme a {
-    color: #6aa2ff !important;
-}
-
-body.dark-theme .theme-toggle {
-    background: #6aa2ff !important;
-}
-
-body.dark-theme header {
-    background: #1a1a1a !important;
-    border-bottom: 1px solid #333 !important;
-}
-
-body.dark-theme main {
-    background: #0b0b0b !important;
-}
-
-body.dark-theme nav ul li a {
-    color: #6aa2ff !important;
+    border-top-color: #444;
 }
