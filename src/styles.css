@@ -14,8 +14,6 @@ body {
 header {
     position: relative;
     padding: 1rem;
-    background: yellow; /* Временный цвет для проверки */
-    min-height: 80px;
 }
 
 nav ul {
@@ -38,6 +36,7 @@ footer {
     text-align: center;
     margin-top: 2rem;
 }
+
 .theme-toggle {
     position: absolute;
     top: 1rem;
@@ -56,25 +55,35 @@ footer {
     background: #0066cc;
 }
 
+/* ДОБАВЬТЕ !important В ЭТИ СЕЛЕКТОРЫ: */
 body.dark-theme {
-    background-color: #0b0b0b;
-    color: #f5f5f5;
+    background-color: #0b0b0b !important;
+    color: #f5f5f5 !important;
 }
 
 body.dark-theme footer {
-    background: #1a1a1a;
-    color: #f5f5f5;
+    background: #1a1a1a !important;
+    color: #f5f5f5 !important;
 }
 
 body.dark-theme a {
-    color: #6aa2ff;
+    color: #6aa2ff !important;
 }
 
 body.dark-theme .theme-toggle {
-    background: #6aa2ff;
+    background: #6aa2ff !important;
 }
 
-.theme-toggle {
-    background: red !important; /* Яркий цвет для видимости */
-    border: 2px solid black !important;
+/* ДОПОЛНИТЕЛЬНО ДОБАВЬТЕ ЭТИ СТИЛИ: */
+body.dark-theme header {
+    background: #1a1a1a !important;
+    border-bottom: 1px solid #333 !important;
+}
+
+body.dark-theme main {
+    background: #0b0b0b !important;
+}
+
+body.dark-theme nav ul li a {
+    color: #6aa2ff !important;
 }
