@@ -6,12 +6,71 @@
     <title>Главная - Название вашего сайта</title>
     <meta name="description" content="Краткое описание главной страницы вашего сайта">
     <link rel="icon" href="assets/favicon.ico" type="image/x-icon">
+    <style>
+        .theme-toggle {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            padding: 0.5rem 1rem;
+            background: #0a84ff;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            z-index: 100;
+        }
+
+        .theme-toggle:hover {
+            background: #0066cc;
+        }
+
+        body {
+            position: relative;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
+
+        header {
+            position: relative;
+            padding: 1rem;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+            line-height: 1.5;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            gap: 1rem;
+        }
+
+        main {
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        footer {
+            background: #f5f5f5;
+            padding: 2rem;
+            text-align: center;
+            margin-top: 2rem;
+        }
+    </style>
 </head>
 <body>
-    <!-- Шапка сайта -->
     <header>
         <a href="/">Логотип или название сайта</a>
-        <!-- Главное меню навигации -->
         <nav>
             <ul>
                 <li><a href="index.html">Главная</a></li>
@@ -21,35 +80,32 @@
         </nav>
     </header>
 
-    <!-- Уникальное основное содержимое страницы -->
     <main>
         <h1>Добро пожаловать на наш сайт!</h1>
 
-        <!-- Секция 1 с якорем -->
         <section id="services">
             <h2>Наши услуги</h2>
             <p>Описание предоставляемых услуг...</p>
-            <a href="#contacts">Связаться с нами</a> <!-- Якорная ссылка внутри страницы -->
+            <a href="#contacts">Связаться с нами</a> 
         </section>
 
-        <!-- Секция 2 с якорем -->
+        
         <section id="portfolio">
             <h2>Портфолио</h2>
             <p>Примеры наших работ...</p>
         </section>
 
-        <!-- Секция 3 с якорем -->
         <section id="contacts">
             <h2>Контактная информация</h2>
             <p>Наши контакты...</p>
-            <a href="contacts.html">Подробнее</a> <!-- Ссылка на отдельную страницу -->
+            <a href="contacts.html">Подробнее</a> 
         </section>
     </main>
 
-    <!-- Подвал сайта -->
     <footer>
         <p>&copy; 2023 Название вашего сайта. Все права защищены.</p>
         <p>Телефон: +7 (123) 456-78-90</p>
     </footer>
+    <script src="jsmain.js"></script>
 </body>
 </html>
