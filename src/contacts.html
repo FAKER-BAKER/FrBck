@@ -6,8 +6,167 @@
     <title>Контакты - Название вашего сайта</title>
     <meta name="description" content="Свяжитесь с нами">
     <link rel="icon" href="assets/favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="contact_batton.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+        
+        header {
+            background: #f4f4f4;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            gap: 1rem;
+        }
+        
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 1rem;
+            margin-top: 2rem;
+        }
+        #contactForm {
+            border: none;
+            border-radius: 8px;
+            padding: 0;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .modal-content {
+            padding: 0;
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .modal-body {
+            padding: 1rem;
+        }
+        
+        .close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+        
+        input, textarea {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+        
+        .form-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: flex-end;
+            margin-top: 1rem;
+        }
+        
+        .submit-btn, .cancel-btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+        .submit-btn {
+            background: #007bff;
+            color: white;
+        }
+        
+        .cancel-btn {
+            background: #6c757d;
+            color: white;
+        }
+        
+        .contact-button {
+            padding: 0.75rem 1.5rem;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        [aria-label="Хлебные крошки"] {
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+        body.light-theme {
+            background: white;
+            color: black;
+        }
+        
+        body.dark-theme {
+            background: #333;
+            color: white;
+        }
+        
+        .dark-theme header {
+            background: #444;
+        }
+        
+        .dark-theme #contactForm {
+            background: #444;
+            color: white;
+        }
+        
+        .dark-theme input,
+        .dark-theme textarea {
+            background: #555;
+            color: white;
+            border-color: #666;
+        }
+    </style>
 </head>
 <body class="light-theme">
     <header>
@@ -53,36 +212,70 @@
 
     <dialog id="contactForm">
         <div class="modal-content">
-            <form method="dialog">
-                <button class="close" aria-label="Закрыть">&times;</button>
-            </form>
-            <h2>Написать нам</h2>
-            <form class="contact-form" id="contactDialogForm">
-                <div class="form-group">
-                    <label for="name">Ваше имя:</label>
-                    <input type="text" id="name" name="name" required>
-                </div>
-                <div class="form-group">
-                    <label for="email">Ваш email:</label>
-                    <input type="email" id="email" name="email" required>
-                </div>
-                <div class="form-group">
-                    <label for="phone">Телефон:</label>
-                    <input type="tel" id="phone" name="phone">
-                </div>
-                <div class="form-group">
-                    <label for="message">Сообщение:</label>
-                    <textarea id="message" name="message" required></textarea>
-                </div>
-                <div class="form-buttons">
-                    <button type="submit" class="submit-btn">Отправить</button>
-                    <button type="button" class="cancel-btn" onclick="contactForm.close()">Отмена</button>
-                </div>
-            </form>
+            <div class="modal-header">
+                <h2 style="margin: 0;">Написать нам</h2>
+                <form method="dialog">
+                    <button class="close" aria-label="Закрыть">&times;</button>
+                </form>
+            </div>
+            <div class="modal-body">
+                <form class="contact-form" id="contactDialogForm">
+                    <div class="form-group">
+                        <label for="name">Ваше имя:</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Ваш email:</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Телефон:</label>
+                        <input type="tel" id="phone" name="phone">
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Сообщение (комментарий):</label>
+                        <textarea id="message" name="message" placeholder="Оставьте ваш комментарий или вопрос..." required></textarea>
+                    </div>
+                    <div class="form-buttons">
+                        <button type="submit" class="submit-btn">Отправить</button>
+                        <button type="button" class="cancel-btn" onclick="document.getElementById('contactForm').close()">Отмена</button>
+                    </div>
+                </form>
+            </div>
         </div>
     </dialog>
 
-    <script src="jsmain.js"></script>
-    <script src="contact_model.js"></script>
+    <script>
+        document.getElementById('contactButton').addEventListener('click', function() {
+            document.getElementById('contactForm').showModal();
+        });
+
+        document.getElementById('contactDialogForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const formData = {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                message: document.getElementById('message').value
+            };
+
+            console.log('Данные формы:', formData);
+            alert('Спасибо! Ваше сообщение отправлено. Мы свяжемся с вами в ближайшее время.');
+            document.getElementById('contactForm').close();
+
+            this.reset();
+        });
+
+        document.getElementById('themeToggle').addEventListener('click', function() {
+            document.body.classList.toggle('light-theme');
+            document.body.classList.toggle('dark-theme');
+        });
+        document.getElementById('contactForm').addEventListener('click', function(e) {
+            if (e.target === this) {
+                this.close();
+            }
+        });
+    </script>
 </body>
 </html>
